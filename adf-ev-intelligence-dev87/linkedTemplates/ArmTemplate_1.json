@@ -1637,6 +1637,7 @@
 				"activities": [
 					{
 						"name": "act_list_silver_notebooks",
+						"description": "Read control table Silver Databricks Notebook ",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
