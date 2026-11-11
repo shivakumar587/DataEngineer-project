@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-ev-intelligence-dev87"
+		},
+		"AzureBlobStorage1_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'AzureBlobStorage1'"
+		},
+		"ls_adls_bronze_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://evdatalakedev87.dfs.core.windows.net/"
+		},
+		"ls_databricl_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1021-055514-eyu0h95n"
+		},
+		"ls_keyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-ev-intelligence-dev87.vault.azure.net/"
+		},
+		"ls_voltgrid_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ev-project-navy-mu.vercel.app"
+		},
+		"tr_blob_ingestion_daily_properties_pl_bronze_blob_ingestion_parameters_p_load_type": {
+			"type": "string",
+			"defaultValue": "incremental"
+		},
+		"trg_payments_incremental_properties_pipeline_parameters_p_source_name": {
+			"type": "string",
+			"defaultValue": "payments"
+		},
+		"trg_payments_incremental_properties_pipeline_parameters_p_load_type_override": {
+			"type": "string",
+			"defaultValue": "``"
+		},
+		"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page": {
+			"type": "int",
+			"defaultValue": 1
+		},
+		"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page_size": {
+			"type": "int",
+			"defaultValue": 1000
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-ev-intelligence-dev87_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_sasUri": {
+						"value": "[parameters('AzureBlobStorage1_sasUri')]"
+					},
+					"ls_adls_bronze_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_bronze_properties_typeProperties_url')]"
+					},
+					"ls_databricl_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricl_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_keyvault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_keyvault_properties_typeProperties_baseUrl')]"
+					},
+					"ls_voltgrid_api_properties_typeProperties_url": {
+						"value": "[parameters('ls_voltgrid_api_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-ev-intelligence-dev87_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"tr_blob_ingestion_daily_properties_pl_bronze_blob_ingestion_parameters_p_load_type": {
+						"value": "[parameters('tr_blob_ingestion_daily_properties_pl_bronze_blob_ingestion_parameters_p_load_type')]"
+					},
+					"trg_payments_incremental_properties_pipeline_parameters_p_source_name": {
+						"value": "[parameters('trg_payments_incremental_properties_pipeline_parameters_p_source_name')]"
+					},
+					"trg_payments_incremental_properties_pipeline_parameters_p_load_type_override": {
+						"value": "[parameters('trg_payments_incremental_properties_pipeline_parameters_p_load_type_override')]"
+					},
+					"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page": {
+						"value": "[parameters('trg_pip1_properties_pl_bronze_api_payments_parameters_p_page')]"
+					},
+					"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page_size": {
+						"value": "[parameters('trg_pip1_properties_pl_bronze_api_payments_parameters_p_page_size')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-ev-intelligence-dev87_ArmTemplate_0')]"
+			]
+		}
+	]
+}

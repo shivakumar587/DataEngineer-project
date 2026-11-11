@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-ev-intelligence-dev87"
+		},
+		"AzureBlobStorage1_sasUri": {
+			"value": ""
+		},
+		"ls_adls_bronze_properties_typeProperties_url": {
+			"value": "https://evdatalakedev87.dfs.core.windows.net/"
+		},
+		"ls_databricl_properties_typeProperties_existingClusterId": {
+			"value": "1021-055514-eyu0h95n"
+		},
+		"ls_keyvault_properties_typeProperties_baseUrl": {
+			"value": "https://kv-ev-intelligence-dev87.vault.azure.net/"
+		},
+		"ls_voltgrid_api_properties_typeProperties_url": {
+			"value": "https://ev-project-navy-mu.vercel.app"
+		},
+		"tr_blob_ingestion_daily_properties_pl_bronze_blob_ingestion_parameters_p_load_type": {
+			"value": "incremental"
+		},
+		"trg_payments_incremental_properties_pipeline_parameters_p_source_name": {
+			"value": "payments"
+		},
+		"trg_payments_incremental_properties_pipeline_parameters_p_load_type_override": {
+			"value": "``"
+		},
+		"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page": {
+			"value": 1
+		},
+		"trg_pip1_properties_pl_bronze_api_payments_parameters_p_page_size": {
+			"value": 1000
+		}
+	}
+}
