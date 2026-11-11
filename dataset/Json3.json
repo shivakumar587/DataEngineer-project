@@ -1,0 +1,85 @@
+{
+	"name": "Json3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_bronze",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "api/payments/ingestion_date=2026-10-25/run_id=53cf8635-0277-4590-a176-b0e3056ad084",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer"
+							},
+							"payment_id": {
+								"type": "string"
+							},
+							"session_id": {
+								"type": "string"
+							},
+							"customer_id": {
+								"type": "string"
+							},
+							"gateway": {
+								"type": "string"
+							},
+							"amount_aud": {
+								"type": "string"
+							},
+							"gst": {
+								"type": "string"
+							},
+							"payment_mode": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string"
+							},
+							"processed_at": {
+								"type": "string"
+							},
+							"created_at": {
+								"type": "string"
+							},
+							"updated_at": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"pagination": {
+					"type": "object",
+					"properties": {
+						"page": {
+							"type": "integer"
+						},
+						"page_size": {
+							"type": "integer"
+						},
+						"total": {
+							"type": "integer"
+						},
+						"total_pages": {
+							"type": "integer"
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

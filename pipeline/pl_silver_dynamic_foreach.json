@@ -1,0 +1,95 @@
+{
+	"name": "pl_silver_dynamic_foreach",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_list_silver_notebooks",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/shiva87.palavarapu@gmail.com/nb_list_silver_notebooks"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricl",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "act_foreach_silver",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "act_list_silver_notebooks",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json(string(activity('act_list_silver_notebooks').output.runOutput))",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 3,
+					"activities": [
+						{
+							"name": "act_run_silver_runner",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_silver_runner",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"p_notebook": {
+										"value": "@item().notebook_name",
+										"type": "Expression"
+									},
+									"p_run_date": {
+										"value": "@pipeline().parameters.p_run_date",
+										"type": "Expression"
+									},
+									"p_run_type": {
+										"value": "@pipeline().parameters.p_run_type",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"p_run_date": {
+				"type": "string"
+			},
+			"p_run_type": {
+				"type": "string",
+				"defaultValue": "incremental"
+			}
+		},
+		"folder": {
+			"name": "silver"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-11-09T07:43:29Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

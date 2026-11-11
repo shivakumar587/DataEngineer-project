@@ -1,0 +1,27 @@
+{
+	"name": "tr_blob_ingestion_daily",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_bronze_blob_ingestion",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"p_load_type": "incremental"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 15,
+				"startTime": "2026-10-27T17:00:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

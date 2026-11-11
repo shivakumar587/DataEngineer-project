@@ -1,0 +1,28 @@
+{
+	"name": "trg_pip1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_bronze_api_payments",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"p_page": 1,
+					"p_page_size": 1000
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2026-10-18T19:47:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

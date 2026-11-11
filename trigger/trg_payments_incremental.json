@@ -1,0 +1,30 @@
+{
+	"name": "trg_payments_incremental",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "pl_bronze_incremental_load",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"p_source_name": "payments",
+				"p_load_type_override": "``"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2026-10-22T08:55:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 1,
+			"retryPolicy": {
+				"count": 2,
+				"intervalInSeconds": 30
+			},
+			"dependsOn": []
+		}
+	}
+}
